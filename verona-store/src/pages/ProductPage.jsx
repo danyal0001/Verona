@@ -14,6 +14,7 @@ const ProductPage = () => {
   const [selectedSize, setSelectedSize] = useState('')
   const [selectedColor, setSelectedColor] = useState('')
   const [quantity, setQuantity] = useState(1)
+  const [addedToCart, setAddedToCart] = useState(false)
 
   useEffect(() => {
     setSelectedSize('')
@@ -38,18 +39,24 @@ const ProductPage = () => {
   }
 
   const handleAddToCart = () => {
-    if (!selectedSize || !selectedColor) {
-      alert('Please select a size and color.')
-      return
-    }
-
-    addToCart(
-      product,
-      selectedSize,
-      selectedColor,
-      quantity
-    )
+  if (!selectedSize || !selectedColor) {
+    alert('Please select a size and color.')
+    return
   }
+
+  addToCart(
+    product,
+    selectedSize,
+    selectedColor,
+    quantity
+  )
+
+  setAddedToCart(true)
+
+  setTimeout(() => {
+    setAddedToCart(false)
+  }, 2000)
+}
 
   const relatedProducts = products
     .filter(
@@ -235,14 +242,15 @@ const ProductPage = () => {
 
           <button
             type="button"
-            className="premium-add-cart"
+            className={`premium-add-cart ${addedToCart ? 'added' : ''}`}
             onClick={handleAddToCart}
           >
-            <span>ADD TO CART</span>
+            <span>
+              {addedToCart ? '✓ ADDED TO CART' : 'ADD TO CART'}
+            </span>
 
             <span>
-              $
-              {(product.price * quantity).toFixed(2)}
+              ${(product.price * quantity).toFixed(2)}
             </span>
           </button>
 

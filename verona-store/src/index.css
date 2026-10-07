@@ -2576,3 +2576,11 @@ button {
     margin-top: 6px;
   }
 }
+
+.premium-add-cart.added {
+  background: #3f4a3f;
+}
+
+.premium-add-cart.added:hover {
+  background: #3f4a3f;
+}
